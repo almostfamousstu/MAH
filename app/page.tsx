@@ -39,12 +39,12 @@ export default function HomePage() {
             >
               Enter the Workspace
             </Link>
-            <Link
+            {/* <Link
               className="rounded-full border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-accent hover:text-accent"
               href="/explore"
             >
               Preview 3D Explorer
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="mt-16 grid gap-6 md:grid-cols-3">
@@ -68,24 +68,24 @@ export default function HomePage() {
         </div>
         <section className="mt-20 grid gap-6 rounded-3xl border border-slate-800 bg-slate-900/50 p-8 md:grid-cols-[2fr,1fr]">
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-100">Why a hybrid 2D/3D interface?</h2>
+            <h2 className="text-2xl font-semibold text-slate-100">AI News</h2>
             <p className="text-sm text-slate-300">
-              The core app shell remains fast, accessible, and enterprise-ready. When your device supports it, optional 3D explorations help teams understand automation estates, dependencies, and live health at a glance.
+              Stay ahead with the latest in AI-driven news, industry trends, and best practices.
             </p>
             <ul className="grid gap-3 text-sm text-slate-300 md:grid-cols-2">
-              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-4">
-                <p className="font-semibold text-slate-200">Progressive enhancement</p>
-                <p className="text-xs text-slate-400">Graceful fallbacks keep the mission-critical tasks in a lightweight UI.</p>
+              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
+                <p className="font-semibold text-slate-200">OpenAI's Sora 2 Launches in Public Preview</p>
+                <p className="text-xs text-slate-400">OpenAI's next-generation text-to-video model, Sora 2, is available on Microsoft Azure</p>
               </li>
-              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-4">
-                <p className="font-semibold text-slate-200">Explorable automation maps</p>
-                <p className="text-xs text-slate-400">Spline scenes and Three.js charts highlight flows without blocking work.</p>
+              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
+                <p className="font-semibold text-slate-200">Google Begins Rollout of Gemini 3.0 Pro</p>
+                <p className="text-xs text-slate-400">Select users are gaining access to Google's latest and "smartest model to date," Gemini 3.0 Pro.</p>
               </li>
-              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-4">
-                <p className="font-semibold text-slate-200">Insight-first runbooks</p>
-                <p className="text-xs text-slate-400">Blend documentation, live metrics, and failure ontology updates in one place.</p>
+              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
+                <p className="font-semibold text-slate-200">Apple Pivots Strategy to Smart Glasses</p>
+                <p className="text-xs text-slate-400">In a significant shift, Apple is pausing the overhaul of its Vision Pro headset to focus resources on smart glasses.</p>
               </li>
-              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-4">
+              <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
                 <p className="font-semibold text-slate-200">Adoption analytics</p>
                 <p className="text-xs text-slate-400">Track training completions, automation usage, and sentiment.</p>
               </li>
