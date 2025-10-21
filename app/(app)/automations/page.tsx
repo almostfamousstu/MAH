@@ -1,15 +1,15 @@
 const automations = [
   {
-    name: "Lead Enrichment Stream",
-    summary: "Enriches inbound leads with firmographic data and posts to CRM in under 45 seconds.",
-    owner: "Revenue Ops",
+    name: "Atttribute lookup by SKU",
+    summary: "Updates item attributes in Magelen based on SKU from NAV.",
+    owner: "Gen Merch`",
     status: "Stable",
     lastRun: "3m ago",
     runRate: "148 runs / wk"
   },
   {
-    name: "Customer Health Pulse",
-    summary: "Aggregates product telemetry + sentiment to flag at-risk accounts with next best actions.",
+    name: "Item Coding Q&A",
+    summary: "Get answers to all your item coding questions. Pulls from the latest sharepoint documentation.",
     owner: "Customer Success",
     status: "Advisory",
     lastRun: "11m ago",
@@ -48,7 +48,7 @@ const playbooks = [
   },
   {
     title: "Update failure ontology",
-    steps: ["Search existing taxonomy", "Link incident evidence", "Submit for steward review"],
+    steps: ["Search existing taxonomy", "Link incident evidence", "Submit for MARU review"],
     cta: "Open Failure Atlas"
   }
 ];
@@ -61,25 +61,25 @@ export default function AutomationsPage() {
           <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Workspace</p>
           <h1 className="text-3xl font-semibold text-slate-100">Micro-Automation Library</h1>
           <p className="max-w-2xl text-sm text-slate-300">
-            Browse every automation, inspect guardrails, and monitor run health. Trigger ad-hoc executions when policy allows and capture any new failure learnings in the shared ontology.
+            Browse every micro-automation, inspect guardrails, and monitor run health. Trigger ad-hoc executions when policy allows and capture any new failure learnings in the shared ontology.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-            <p className="text-xs text-slate-400">Active automations</p>
-            <p className="text-2xl font-semibold text-accent">26</p>
+            <p className="text-xs text-slate-400">Active Micro-Automations</p>
+            <p className="text-2xl font-semibold text-accent">4</p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-            <p className="text-xs text-slate-400">On-call steward</p>
-            <p className="text-2xl font-semibold text-slate-200">Alex Morgan</p>
+            <p className="text-xs text-slate-400">On-call MARU</p>
+            <p className="text-xl font-semibold text-slate-200">Stu H</p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
             <p className="text-xs text-slate-400">Avg. runtime</p>
-            <p className="text-2xl font-semibold text-slate-200">1m 18s</p>
+            <p className="text-xl font-semibold text-slate-200">1m 18s</p>
           </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-2">
             <p className="text-xs text-slate-400">SLA adherence</p>
-            <p className="text-2xl font-semibold text-emerald-400">98.4%</p>
+            <p className="text-xl font-semibold text-emerald-400">98.4%</p>
           </div>
         </div>
       </header>

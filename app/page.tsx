@@ -13,7 +13,7 @@ const pillars = [
   },
   {
     title: "Training & Culture",
-    description: "Bite-sized training, campaigns, and adoption analytics to scale AI literacy.",
+    description: "Bite-sized tutorials, podcast episodes, and resources to scale AI literacy.",
     href: "/training"
   }
 ];
@@ -24,10 +24,10 @@ export default function HomePage() {
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-8 pb-16 pt-24">
         <div className="space-y-8 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-accent">
-            Private Launch Preview
+            Pre-Launch Alpha
           </span>
           <h1 className="text-4xl font-semibold tracking-tight text-slate-100 md:text-6xl">
-            Operational intelligence for every automation team
+            Deep Currents Micro-Automation Hub
           </h1>
           <p className="mx-auto max-w-2xl text-base text-slate-300 md:text-lg">
             Discover, govern, and grow your catalogue of GenAI-powered micro-automations. Explore training and adoption playbooks while keeping failure modes transparent and actionable.
