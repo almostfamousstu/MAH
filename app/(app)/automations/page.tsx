@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const automations = [
   {
     name: "Atttribute lookup by SKU",
@@ -90,9 +92,12 @@ export default function AutomationsPage() {
               <h2 className="text-xl font-semibold text-slate-100">Recently active</h2>
               <p className="text-xs text-slate-400">Pulse of the last 24 hours</p>
             </div>
-            <button className="rounded-full border border-slate-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent">
+            <Link
+              href="/automations/new"
+              className="rounded-full border border-slate-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent"
+            >
               New automation
-            </button>
+            </Link>
           </div>
           <ul className="space-y-3">
             {automations.map((automation) => (
@@ -149,9 +154,12 @@ export default function AutomationsPage() {
                       </li>
                     ))}
                   </ol>
-                  <button className="mt-3 rounded-full border border-slate-700 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent">
+                  <Link
+                    href="/automations/new"
+                    className="mt-3 inline-flex items-center justify-center rounded-full border border-slate-700 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent"
+                  >
                     {playbook.cta}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

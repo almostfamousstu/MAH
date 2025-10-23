@@ -1,17 +1,17 @@
 const upcomingScenes = [
   {
-    title: "Automation constellation",
-    description: "Navigate interconnected workflows as a radial graph. Hover to preview metrics, click to deep link into the 2D detail view.",
-    status: "In design"
+    title: "Govern",
+    description: "When a micro-automation idea is generated from the Idea Generation Subsystem, operators will use an Intake Form to submit to the Deepcurrents Leadership for review.",
+    status: "In Progress"
   },
   {
-    title: "Run replay",
-    description: "Timeline-based playback that blends 3D flow with live log excerpts and guardrail events.",
+    title: "Design & build",
+    description: "Program Increment (PI) Planning",
     status: "Prototype"
   },
   {
-    title: "Failure landscape",
-    description: "Map ontology clusters in 3D space to spot systemic gaps and hot spots.",
+    title: "Accelerate",
+    description: "",
     status: "Planning"
   }
 ];
@@ -20,15 +20,15 @@ export default function ExplorePage() {
   return (
     <div className="space-y-8">
       <header className="rounded-3xl border border-slate-800 bg-slate-950/60 p-8">
-        <h1 className="text-3xl font-semibold text-slate-100">3D Explorer (preview)</h1>
+        <h1 className="text-3xl font-semibold text-slate-100">Micro-Automation System Development (preview)</h1>
         <p className="mt-2 max-w-2xl text-sm text-slate-300">
-          This is the progressive enhancement layer. When WebGL is available, Spline and Three.js scenes will load. Otherwise, users see this fast 2D companion with the same navigation.
+          Identify (through processing mining, user input, data-driven signals) and enable (ideas, automaters+operators) automation with speed, precision and scale leading to zero touch, zero defect, real-time, highly efficient delivery of solutions/products.
         </p>
       </header>
       <section className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
-        <h2 className="text-xl font-semibold text-slate-100">Fallback mode</h2>
+        <h2 className="text-xl font-semibold text-slate-100">Outstanding Items/Questions</h2>
         <p className="mt-2 text-sm text-slate-300">
-          If a device disables WebGL or opts into reduced motion, the explorer presents these storyboards and links. Each scene is mirrored as structured content so nothing is lost.
+          Currently outstanding items that are TBD
         </p>
         <ul className="mt-4 grid gap-4 md:grid-cols-3">
           {upcomingScenes.map((scene) => (
@@ -43,11 +43,12 @@ export default function ExplorePage() {
       <section className="rounded-3xl border border-accent/40 bg-accent/10 p-6 shadow-glow">
         <h2 className="text-xl font-semibold text-accent">Integration checklist</h2>
         <ul className="mt-3 space-y-2 text-sm text-accent/90">
-          <li>Embed Spline canvas as lazy-loaded component with feature detection</li>
-          <li>Provide keyboard navigation overlay for every spatial interaction</li>
-          <li>Stream telemetry overlays via websocket → synchronized 2D summary</li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ul>
       </section>
     </div>
   );
 }
+

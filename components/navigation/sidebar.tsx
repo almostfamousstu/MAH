@@ -27,16 +27,21 @@ const primaryNav: NavItem[] = [
   },
   {
     href: "/explore",
-    label: "3D Explorer",
-    description: "Spline + Three.js scenes with graceful 2D fallback"
+    label: "DC MA System Development",
+    description: "Micro-automation system development and tracking"
   }
 ];
 
 const secondaryNav: NavItem[] = [
   {
+    href: "/chat",
+    label: "AI Assistant",
+    description: "Chat with AI about automation and best practices"
+  },
+  {
     href: "/roadmap",
     label: "Roadmap",
-    description: "What’s shipping next, feedback backlog"
+    description: "What's shipping next, feedback backlog"
   },
   {
     href: "/insights",
