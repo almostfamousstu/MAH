@@ -1,61 +1,18 @@
-const kpis = [
-  {
-    title: "Automation runs",
-    value: "1,482",
-    delta: "+12%",
-    description: "vs. prior 7 days"
-  },
-  {
-    title: "Interventions avoided",
-    value: "286",
-    delta: "+6%",
-    description: "LLM handled without analyst escalation"
-  },
-  {
-    title: "Median run cost",
-    value: "$0.42",
-    delta: "-9%",
-    description: "Weighted across providers"
-  }
-];
+import type { InsightAdoption, InsightIncident, InsightKpi } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+import { AdoptionByTeam } from "@/components/adoption-by-team";
 
-const adoption = [
-  {
-    team: "Revenue Ops",
-    metric: "94%",
-    detail: "Adopted at least one automation"
-  },
-  {
-    team: "Customer Success",
-    metric: "88%",
-    detail: "Weekly active analysts"
-  },
-  {
-    team: "Finance",
-    metric: "61%",
-    detail: "Playbook completion"
-  }
-];
+export default async function InsightsPage() {
+  const [kpis, adoption, incidents]: [InsightKpi[], InsightAdoption[], InsightIncident[]] = await Promise.all([
+    prisma.insightKpi.findMany({ orderBy: [{ sortOrder: "asc" }, { title: "asc" }] }),
+    prisma.insightAdoption.findMany({
+      orderBy: [{ sortOrder: "asc" }, { team: "asc" }]
+    }),
+    prisma.insightIncident.findMany({
+      orderBy: [{ sortOrder: "asc" }, { label: "asc" }]
+    })
+  ]);
 
-const incidents = [
-  {
-    label: "P0",
-    count: 0,
-    description: "Zero critical failures in rolling 30 days"
-  },
-  {
-    label: "P1",
-    count: 2,
-    description: "Schema drift (resolved), Provider latency (mitigated)"
-  },
-  {
-    label: "P2",
-    count: 9,
-    description: "Low impact warnings awaiting steward triage"
-  }
-];
-
-export default function InsightsPage() {
   return (
     <div className="space-y-8">
       <header className="rounded-3xl border border-slate-800 bg-slate-950/60 p-8">
@@ -65,8 +22,8 @@ export default function InsightsPage() {
         </p>
       </header>
       <section className="grid gap-6 lg:grid-cols-3">
-        {kpis.map((kpi) => (
-          <div key={kpi.title} className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
+  {kpis.map((kpi) => (
+          <div key={kpi.id} className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{kpi.title}</p>
             <p className="mt-2 text-3xl font-semibold text-slate-100">{kpi.value}</p>
             <p className="text-xs text-emerald-400">{kpi.delta}</p>
@@ -75,25 +32,12 @@ export default function InsightsPage() {
         ))}
       </section>
       <section className="grid gap-6 lg:grid-cols-[2fr,1fr]">
-        <div className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
-          <h2 className="text-xl font-semibold text-slate-100">Adoption by team</h2>
-          <ul className="mt-4 space-y-3 text-sm text-slate-300">
-            {adoption.map((entry) => (
-              <li key={entry.team} className="flex items-center justify-between rounded-2xl border border-slate-800/70 bg-slate-900/50 p-4">
-                <div>
-                  <p className="text-slate-200">{entry.team}</p>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">{entry.detail}</p>
-                </div>
-                <span className="font-mono text-accent">{entry.metric}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <AdoptionByTeam adoption={adoption} />
         <aside className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
           <h3 className="text-sm font-semibold text-slate-200">Incident queue</h3>
           <ul className="mt-3 space-y-3 text-xs text-slate-300">
             {incidents.map((incident) => (
-              <li key={incident.label} className="rounded-2xl border border-slate-800/70 bg-slate-900/50 p-3">
+              <li key={incident.id} className="rounded-2xl border border-slate-800/70 bg-slate-900/50 p-3">
                 <div className="flex items-center justify-between">
                   <p className="text-slate-200">{incident.label}</p>
                   <span className="font-mono text-amber-400">{incident.count}</span>

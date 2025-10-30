@@ -74,12 +74,12 @@ export default function HomePage() {
             </p>
             <ul className="grid gap-3 text-sm text-slate-300 md:grid-cols-2">
               <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
-                <p className="font-semibold text-slate-200">OpenAI's Sora 2 Launches in Public Preview</p>
-                <p className="text-xs text-slate-400">OpenAI's next-generation text-to-video model, Sora 2, is available on Microsoft Azure</p>
+                <p className="font-semibold text-slate-200">OpenAI&apos;s Sora 2 Launches in Public Preview</p>
+                <p className="text-xs text-slate-400">OpenAI&apos;s next-generation text-to-video model, Sora 2, is available on Microsoft Azure</p>
               </li>
               <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
                 <p className="font-semibold text-slate-200">Google Begins Rollout of Gemini 3.0 Pro</p>
-                <p className="text-xs text-slate-400">Select users are gaining access to Google's latest and "smartest model to date," Gemini 3.0 Pro.</p>
+                <p className="text-xs text-slate-400">Select users are gaining access to Google&apos;s latest and &quot;smartest model to date,&quot; Gemini 3.0 Pro.</p>
               </li>
               <li className="rounded-2xl border border-slate-800/60 bg-slate-950/70 p-2">
                 <p className="font-semibold text-slate-200">Apple Pivots Strategy to Smart Glasses</p>

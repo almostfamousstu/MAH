@@ -1,31 +1,6 @@
 import Link from "next/link";
-
-const automations = [
-  {
-    name: "Atttribute lookup by SKU",
-    summary: "Updates item attributes in Magelen based on SKU from NAV.",
-    owner: "Gen Merch`",
-    status: "Stable",
-    lastRun: "3m ago",
-    runRate: "148 runs / wk"
-  },
-  {
-    name: "Item Coding Q&A",
-    summary: "Get answers to all your item coding questions. Pulls from the latest sharepoint documentation.",
-    owner: "Customer Success",
-    status: "Advisory",
-    lastRun: "11m ago",
-    runRate: "93 runs / wk"
-  },
-  {
-    name: "Invoice Exception Resolver",
-    summary: "GenAI agent triages failed invoices, drafts outreach, and updates ERP with resolution.",
-    owner: "Finance Ops",
-    status: "Pilot",
-    lastRun: "42m ago",
-    runRate: "37 runs / wk"
-  }
-];
+import type { Automation } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
 const failureHighlights = [
   {
@@ -55,7 +30,11 @@ const playbooks = [
   }
 ];
 
-export default function AutomationsPage() {
+export default async function AutomationsPage() {
+  const automations: Automation[] = await prisma.automation.findMany({
+    orderBy: [{ sortOrder: "asc" }, { name: "asc" }]
+  });
+
   return (
     <div className="space-y-10">
       <header className="flex flex-col gap-6 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 lg:flex-row lg:items-center lg:justify-between">
@@ -102,7 +81,7 @@ export default function AutomationsPage() {
           <ul className="space-y-3">
             {automations.map((automation) => (
               <li
-                key={automation.name}
+                key={automation.id}
                 className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 transition hover:border-accent/60 hover:bg-slate-900/80"
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
@@ -117,7 +96,7 @@ export default function AutomationsPage() {
                   </div>
                   <div className="flex flex-col items-end text-xs text-slate-400">
                     <span className="font-mono text-accent">{automation.runRate}</span>
-                    <span>Last run {automation.lastRun}</span>
+                    <span>Last run {automation.lastRunRelative}</span>
                     <button className="mt-3 rounded-full border border-slate-700 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent">
                       Trigger run
                     </button>

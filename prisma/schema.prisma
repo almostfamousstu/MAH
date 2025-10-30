@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Automation {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  summary         String
+  owner           String
+  status          String
+  lastRunRelative String
+  runRate         String
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model InsightKpi {
+  id          Int    @id @default(autoincrement())
+  title       String @unique
+  value       String
+  delta       String
+  description String
+  sortOrder   Int    @default(0)
+}
+
+model InsightAdoption {
+  id        Int    @id @default(autoincrement())
+  team      String @unique
+  metric    String
+  detail    String
+  sortOrder Int    @default(0)
+}
+
+model InsightIncident {
+  id          Int    @id @default(autoincrement())
+  label       String @unique
+  count       Int
+  description String
+  sortOrder   Int    @default(0)
+}
+
+model RoadmapMilestone {
+  id        Int    @id @default(autoincrement())
+  quarter   String
+  focus     String @unique
+  detail    String
+  status    String
+  sortOrder Int    @default(0)
+}
+
+model FeedbackItem {
+  id        Int    @id @default(autoincrement())
+  title     String @unique
+  votes     Int
+  state     String
+  sortOrder Int    @default(0)
+}

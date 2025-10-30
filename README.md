@@ -11,6 +11,31 @@ npm run dev
 
 The development server runs on [http://localhost:3000](http://localhost:3000).
 
+### Database
+
+The workspace now uses PostgreSQL (via Prisma) for automations, insights, and roadmap data.
+
+1. Start Postgres locally (Docker):
+
+	```bash
+	docker compose up -d db
+	```
+
+2. Apply migrations and seed baseline records:
+
+	```bash
+	npm run db:migrate
+	npm run db:seed
+	```
+
+3. Generate the Prisma client whenever the schema changes:
+
+	```bash
+	npm run db:generate
+	```
+
+Set `DATABASE_URL` and `OPENAI_API_KEY` in a local `.env` (see `.env.example`).
+
 ## Structure
 
 - `app/` – App Router pages. Landing page lives at `/`, while authenticated workspace views live under the `(app)` route group.
