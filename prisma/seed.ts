@@ -75,7 +75,7 @@ async function main() {
 
   const adoption = [
     {
-      team: "Gen Merch",
+      team: "Revenue Ops",
       metric: "94%",
       detail: "Adopted at least one automation"
     },
@@ -131,21 +131,21 @@ async function main() {
 
   const milestones = [
     {
-      quarter: "Q4",
-      focus: "MARU Developer Portal",
-      detail: "A portal for developers to onboard, test, and deploy micro-automations.",
+      quarter: "Q2",
+      focus: "Authoring workbench",
+      detail: "Visual builder for chaining services, versioned prompts, and simulation runs.",
       status: "In progress"
     },
     {
-      quarter: "Q4",
-      focus: "Idea Funnel: Flow Chart Builder",
-      detail: "Define automation logic visually with a drag-and-drop interface.",
+      quarter: "Q2",
+      focus: "Telemetry sync",
+      detail: "Real-time ingestion of automation logs and metrics into the insights layer.",
       status: "In design"
     },
     {
-      quarter: "Q1",
-      focus: "MCP Library",
-      detail: "Library of available MCP connectors for common enterprise systems.",
+      quarter: "Q3",
+      focus: "Lite mode",
+      detail: "Automatic fallback to minimal UI and static visualizations for constrained devices.",
       status: "Planned"
     }
   ];
@@ -162,19 +162,19 @@ async function main() {
 
   const feedback = [
     {
-      title: "Automatic prompt optimization",
+      title: "Bulk assign training",
       votes: 24,
-      state: "Accepted"
+      state: "Under review"
     },
     {
-      title: "JIRA ticket agent",
+      title: "Webhook delivery for run events",
       votes: 18,
       state: "Accepted"
     },
     {
-      title: "Integration with monday.com",
+      title: "Service account usage insights",
       votes: 12,
-      state: "Under review"
+      state: "Investigating"
     }
   ];
 

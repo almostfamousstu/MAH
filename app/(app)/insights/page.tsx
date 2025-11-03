@@ -1,6 +1,5 @@
 import type { InsightAdoption, InsightIncident, InsightKpi } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { AdoptionByTeam } from "@/components/adoption-by-team";
 
 export default async function InsightsPage() {
   const [kpis, adoption, incidents]: [InsightKpi[], InsightAdoption[], InsightIncident[]] = await Promise.all([
@@ -32,7 +31,20 @@ export default async function InsightsPage() {
         ))}
       </section>
       <section className="grid gap-6 lg:grid-cols-[2fr,1fr]">
-        <AdoptionByTeam adoption={adoption} />
+        <div className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
+          <h2 className="text-xl font-semibold text-slate-100">Adoption by team</h2>
+          <ul className="mt-4 space-y-3 text-sm text-slate-300">
+            {adoption.map((entry) => (
+              <li key={entry.id} className="flex items-center justify-between rounded-2xl border border-slate-800/70 bg-slate-900/50 p-4">
+                <div>
+                  <p className="text-slate-200">{entry.team}</p>
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">{entry.detail}</p>
+                </div>
+                <span className="font-mono text-accent">{entry.metric}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
         <aside className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
           <h3 className="text-sm font-semibold text-slate-200">Incident queue</h3>
           <ul className="mt-3 space-y-3 text-xs text-slate-300">

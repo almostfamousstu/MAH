@@ -16,6 +16,11 @@ const primaryNav: NavItem[] = [
     description: "Curated workflows, trigger policies, run history"
   },
   {
+    href: "/maru-portal",
+    label: "MARU Portal",
+    description: "Developer portal for micro automation onboarding"
+  },
+  {
     href: "/failure-atlas",
     label: "Failure Atlas",
     description: "Shared taxonomy of incidents, fixes, and prevention"

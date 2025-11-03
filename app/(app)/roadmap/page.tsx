@@ -1,6 +1,5 @@
 import type { FeedbackItem, RoadmapMilestone } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { FeatureRequests } from "@/components/feature-requests";
 
 export default async function RoadmapPage() {
   const [roadmap, feedback]: [RoadmapMilestone[], FeedbackItem[]] = await Promise.all([
@@ -11,19 +10,6 @@ export default async function RoadmapPage() {
       orderBy: [{ sortOrder: "asc" }, { votes: "desc" }]
     })
   ]);
-
-  const getStatusStyles = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "in progress":
-        return "bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border-emerald-500/30 text-emerald-300";
-      case "in design":
-        return "bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30 text-orange-300";
-      case "planned":
-        return "bg-gradient-to-br from-purple-500/20 to-purple-600/10 border-purple-500/30 text-purple-300";
-      default:
-        return "bg-gradient-to-br from-slate-700/20 to-slate-800/10 border-slate-700 text-slate-200";
-    }
-  };
 
   return (
     <div className="space-y-8">
@@ -45,7 +31,7 @@ export default async function RoadmapPage() {
                     <p className="text-sm font-semibold text-slate-100">{item.focus}</p>
                     <p>{item.detail}</p>
                   </div>
-                  <span className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] ${getStatusStyles(item.status)}`}>
+                  <span className="rounded-full border border-slate-700 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200">
                     {item.status}
                   </span>
                 </div>
@@ -53,7 +39,23 @@ export default async function RoadmapPage() {
             ))}
           </ul>
         </div>
-        <FeatureRequests feedback={feedback} />
+        <aside className="rounded-3xl border border-slate-800 bg-slate-950/60 p-6">
+          <h3 className="text-sm font-semibold text-slate-200">Top feedback</h3>
+          <ul className="mt-3 space-y-3 text-xs text-slate-300">
+            {feedback.map((item) => (
+              <li key={item.id} className="flex items-center justify-between rounded-2xl border border-slate-800/70 bg-slate-900/50 p-3">
+                <div>
+                  <p className="text-slate-200">{item.title}</p>
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">{item.state}</p>
+                </div>
+                <span className="font-mono text-accent">{item.votes}</span>
+              </li>
+            ))}
+          </ul>
+          <button className="mt-4 w-full rounded-full border border-slate-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200 transition hover:border-accent hover:text-accent">
+            Submit idea
+          </button>
+        </aside>
       </section>
     </div>
   );
