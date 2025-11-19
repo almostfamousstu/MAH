@@ -1,29 +1,14 @@
-export type ProjectStatus = "upcoming" | "in-progress" | "completed";
+import {
+  Project as ProjectType,
+  ProjectComponent,
+  ProjectSections,
+  ProjectStatus,
+  ProjectStep,
+} from "./project-types";
 
-export type ProjectStep = {
-  description: string;
-};
-
-export type Component = {
-  name: string;
-  description: string;
-};
-
-export type Project = {
-  id: string;
-  name: string;
-  status: ProjectStatus;
-  summary: string;
-  objective: string;
-  steps: ProjectStep[];
-  components: Component[];
-  repoUrl: string;
-  executionMode: string;
-  targetEnvironment: string;
-  outputDestination: string;
-  tags: string[];
-  lastUpdated: string;
-};
+export type Project = ProjectType;
+export type Component = ProjectComponent;
+export type { ProjectStatus, ProjectStep, ProjectSections };
 
 export const projects: Project[] = [
   {
@@ -170,24 +155,100 @@ export function getProjectsByStatus(status: ProjectStatus): Project[] {
 
 const PROJECTS_STORAGE_KEY = "maru-portal-projects";
 
+function buildSectionDefaults(project: Project): ProjectSections {
+  const existingStepDescriptions = project.steps?.map((step) => step.description).filter(Boolean) ?? [];
+  const defaultComponents = project.components ?? [];
+  const deploymentParts = [project.executionMode, project.targetEnvironment, project.outputDestination].filter((part) => part && part !== "TBD");
+
+  return {
+    solutionName: project.name,
+    overview: project.summary,
+    objective: {
+      summary: project.objective,
+      steps: existingStepDescriptions,
+    },
+    architecture: {
+      components: defaultComponents,
+      flow: existingStepDescriptions,
+    },
+    referenceDocs: [],
+    developmentEnvironment: `Refer to the repository README at ${project.repoUrl} for environment setup details.`,
+    testing: {
+      instructions: "Refer to the repository README for testing guidance.",
+      coverage: [],
+    },
+    deployment: deploymentParts.join(" • "),
+    security: [],
+  };
+}
+
+function mergeSectionsWithDefaults(existing: ProjectSections | undefined, project: Project): ProjectSections {
+  const defaults = buildSectionDefaults(project);
+
+  if (!existing) {
+    return defaults;
+  }
+
+  const testingCoverage = existing.testing?.coverage?.length
+    ? existing.testing.coverage
+    : defaults.testing?.coverage ?? [];
+
+  return {
+    ...defaults,
+    ...existing,
+    objective: {
+      ...defaults.objective,
+      ...existing.objective,
+      steps: existing.objective?.steps?.length ? existing.objective.steps : defaults.objective?.steps ?? [],
+    },
+    architecture: {
+      ...defaults.architecture,
+      ...existing.architecture,
+      components: existing.architecture?.components?.length ? existing.architecture.components : defaults.architecture?.components ?? [],
+      flow: existing.architecture?.flow?.length ? existing.architecture.flow : defaults.architecture?.flow ?? [],
+    },
+    testing: {
+      instructions: existing.testing?.instructions ?? defaults.testing?.instructions,
+      command: existing.testing?.command ?? defaults.testing?.command,
+      coverage: testingCoverage,
+    },
+    referenceDocs: existing.referenceDocs && existing.referenceDocs.length ? existing.referenceDocs : defaults.referenceDocs,
+    security: existing.security && existing.security.length ? existing.security : defaults.security,
+  };
+}
+
+function normalizeProject(project: Project): Project {
+  const sections = mergeSectionsWithDefaults(project.sections, project);
+  const stepDescriptions = project.steps?.length ? project.steps.map((step) => step.description) : sections.objective?.steps ?? [];
+
+  return {
+    ...project,
+    summary: project.summary || sections.overview || "",
+    objective: project.objective || sections.objective?.summary || "",
+    sections,
+    components: project.components?.length ? project.components : sections.architecture?.components ?? [],
+    steps: stepDescriptions.map((description) => ({ description })),
+  };
+}
+
 export function getAllProjects(): Project[] {
   // Return only initial projects if on server or localStorage is not available
-  if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
-    return [...projects];
+  if (typeof window === "undefined" || typeof window.localStorage === "undefined") {
+    return projects.map(normalizeProject);
   }
 
   const stored = localStorage.getItem(PROJECTS_STORAGE_KEY);
-  const customProjects = stored ? JSON.parse(stored) : [];
-  
+  const customProjects: Project[] = stored ? JSON.parse(stored) : [];
+
   // Combine initial and custom projects, ensuring no duplicates by ID
   const combined = [...customProjects, ...projects];
-  const uniqueProjects = Array.from(new Map(combined.map(p => [p.id, p])).values());
-  
-  return uniqueProjects;
+  const uniqueProjects = Array.from(new Map(combined.map((p) => [p.id, p])).values());
+
+  return uniqueProjects.map(normalizeProject);
 }
 
 export function saveCustomProjects(customProjects: Project[]) {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(customProjects));
   }
 }

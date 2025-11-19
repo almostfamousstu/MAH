@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { Project, ProjectStatus } from "@/lib/maru-projects";
+import { Trash2 } from "lucide-react";
 
 type ProjectCardProps = {
   project: Project;
+  onDelete?: (id: string) => void;
+  isDeletable?: boolean;
 };
 
 const statusColors: Record<ProjectStatus, { bg: string; text: string; border: string }> = {
@@ -29,16 +32,33 @@ const statusLabels: Record<ProjectStatus, string> = {
   completed: "Completed"
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, onDelete, isDeletable }: ProjectCardProps) {
   const statusStyle = statusColors[project.status];
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onDelete) {
+      onDelete(project.id);
+    }
+  };
 
   return (
     <Link href={`/maru-portal/${project.id}`}>
-      <div className="group h-full rounded-2xl border border-slate-800 bg-surface/60 p-6 transition-all hover:border-accent/60 hover:bg-surface/80 hover:shadow-glow">
+      <div className="group relative h-full rounded-2xl border border-slate-800 bg-surface/60 p-6 transition-all hover:border-accent/60 hover:bg-surface/80 hover:shadow-glow">
+        {isDeletable && (
+          <button
+            onClick={handleDelete}
+            className="absolute top-3 right-3 z-10 p-2 rounded-full bg-slate-800/50 text-slate-400 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 hover:text-red-400 transition-all"
+            aria-label="Delete project"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        )}
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="mb-4 flex items-start justify-between">
-            <div className="flex-1">
+            <div className="flex-1 pr-8">
               <h3 className="text-lg font-semibold text-slate-100 group-hover:text-accent transition-colors">
                 {project.name}
               </h3>
